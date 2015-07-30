@@ -1,0 +1,18 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Mark Norman Francis
+  description: dnsmasq for Mac OS X via Homebrew
+  company:
+  license: BSD
+  min_ansible_version: 1.6
+  platforms:
+  - name: GenericUNIX
+    versions:
+    - all
+    - any
+  categories:
+  - development
+  - packaging
+  - system

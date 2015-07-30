@@ -1,0 +1,29 @@
+---
+- name: Install dnsmasq
+  homebrew: name=dnsmasq state=present
+
+- name: Configure dnsmasq
+  copy: src=dnsmasq.conf dest=/usr/local/etc/dnsmasq.conf
+
+- name: Create dnsmasq launchctl configuration
+  copy:
+    src: /usr/local/opt/dnsmasq/homebrew.mxcl.dnsmasq.plist
+    dest: /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    owner: root
+  sudo: yes
+
+- name: Start dnsmasq
+  shell: launchctl load /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+  sudo: yes
+
+- name: Make /etc/resolver
+  file:
+    path: /etc/resolver
+    group: admin
+    mode: 0755
+    state: directory
+  sudo: yes
+
+- name: Configure dnsmasq to serve *.dev
+  copy: src=resolver.dev dest=/etc/resolver/dev
+  sudo: yes
